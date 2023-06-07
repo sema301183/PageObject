@@ -10,9 +10,9 @@ install:
   # запускаем SUT (запоминаем информацию о процессе в переменной $App)
   - ps: $App = Start-Process -FilePath java -ArgumentList "-jar ./artifacts/app-ibank-build-for-testers.jar" -PassThru
 
-
 build_script:
-  - ps: ./gradlew test --info "-Dselenide.headless=true"  # стартуем Selenide в Headless-режиме (см.ниже)
+  - ps: chmod +x ./gradlew
+  - ps: ./gradlew test --info "-Dselenide.headless=true"  # стартуем Selenide в Headless-режиме
 
 on_finish:
-  - ps: Stop-Process -Id $App.Id  # оставливаем SUT
+  - ps: Stop-Process -Id $App.Id  # останавливаем SUT
