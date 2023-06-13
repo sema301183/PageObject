@@ -1,18 +1,18 @@
-image: Ubuntu1804  # образ для сборки
+image: Ubuntu  # образ для сборки
+
+stack: jdk 11  # версия JDK
 
 branches:
   only:
-    - master  # ветка git
+    - main # ветка git
 
-build: off  # будем использовать свой скрипт сборки
+build: off  # для использования своего скрипта сборки
 
 install:
-  # запускаем SUT (запоминаем информацию о процессе в переменной $App)
-  - ps: $App = Start-Process -FilePath java -ArgumentList "-jar ./artifacts/app-ibank-build-for-testers.jar" -PassThru
+  - java -jar ./artifacts/app-ibank-build-for-testers.jar &
 
 build_script:
-  - ps: chmod +x ./gradlew
-  - ps: ./gradlew test --info "-Dselenide.headless=true"  # стартуем Selenide в Headless-режиме
-
-on_finish:
-  - ps: Stop-Process -Id $App.Id  # останавливаем SUT
+  - chmod +x gradlew # предоставление прав на запуск файла gradlew
+  # запуск тестов, параметр -Dselenide.headless=true отключает графический интерфейс
+  # флаг --info позволяет выводить больше информации
+  - ./gradlew test -Dselenide.headless=true --info
