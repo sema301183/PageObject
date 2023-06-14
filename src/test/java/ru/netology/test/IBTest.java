@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.pages.DashboardPage;
+import ru.netology.pages.LoginPage;
 
 import static com.codeborne.selenide.Selenide.open;
 import static java.lang.String.valueOf;
